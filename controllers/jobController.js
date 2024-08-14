@@ -38,7 +38,7 @@ export const getAllJobs = async (req, res) => {
   const skip=(page-1)*limit;
 
   if(mainRole==="Employee" || role=="admin" || role=="demo"){
-    const jobs = await Job.find(queryObject).sort(sortKey).skip(skip).limit(limit);
+    const jobs = await Job.find(queryObject).sort(sortKey)
     const totalJobs=await Job.countDocuments(queryObject)
     const numOfPages =Math.ceil(totalJobs/limit)
     // console.log(req.user)
@@ -47,8 +47,6 @@ export const getAllJobs = async (req, res) => {
   queryObject.createdBy=userId;
   const jobs = await Job.find(queryObject)
   .sort(sortKey)
-  .skip(skip)
-  .limit(limit);
   const totalJobs=await Job.countDocuments(queryObject)
   const numOfPages =Math.ceil(totalJobs/limit)
   // console.log(req.user)
