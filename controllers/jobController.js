@@ -200,39 +200,36 @@ export const deleteJob = async (req, res) => {
 export const applyToJob = async (req, res) => {
   try {
     const { id } = req.params;
-    // console.log(id)
     const job = await Job.findById(id);
     if (!job) {
       return res.status(StatusCodes.NOT_FOUND).json({ msg: "Job not found" });
     }
-    console.log(job)
+
     const { token } = req.cookies;
     const { userId } = verifyJWT(token);
 
     const user = await User.findById(userId);
-
-
     if (!user) {
       return res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Unauthorized" });
     }
 
-    // Check if the job is already applied to
-    user.appliedJobs.map((applied)=>{
-      if(applied.id===id) return res
+    // Check if the user has already applied to the job
+    const hasApplied = user.appliedJobs.some((applied) => applied.id === id);
+
+    if (hasApplied) {
+      return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ msg: "You have already applied to this job" });
-    })
-    // if (user.appliedJobs.includes()) {
-    //   return res
-    //     .status(StatusCodes.BAD_REQUEST)
-    //     .json({ msg: "You have already applied to this job" });
-    // }
+    }
 
     // Add the job ID to the user's applied jobs
-    user.appliedJobs.push({id,status:"pending"});
+    user.appliedJobs.push({ id, status: "pending" });
     await user.save();
+
+    // Add the user ID to the job's appliedBy list
     job.appliedBy.push(userId);
     await job.save();
+
     res
       .status(StatusCodes.OK)
       .json({ msg: "Job applied successfully", appliedJobs: user.appliedJobs });
