@@ -18,6 +18,12 @@ export const getAllJobs = async (req, res) => {
       {position:{$regex:search,$options:'i'}},
       {company:{$regex:search,$options:'i'}}
     ]
+    // for matching string from start to end
+    // queryObject.$or = [
+    //   { position: { $regex: `^${search}`, $options: "i" } },
+    //   { company: { $regex: `^${search}`, $options: "i" } },
+    // ];
+
   }
   if(jobType && jobType!=='all'){
     queryObject.jobType=jobType;

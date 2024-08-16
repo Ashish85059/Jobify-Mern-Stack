@@ -2,6 +2,7 @@ import React from 'react'
 import { useDashboardContext } from '../pages/DashboardLayout'
 import links from '../utils/Links'
 import { NavLink } from 'react-router-dom'
+import { IoReturnDownBack } from 'react-icons/io5'
 
 const NavLinks = ({isBigSidebar}) => {
     const {toggleSidebar,user}=useDashboardContext()
@@ -17,6 +18,7 @@ const NavLinks = ({isBigSidebar}) => {
         if(path==="pendingApplications"&& mainRole==="Employee")return;
         if(path==='stats' && mainRole==="Employee")return;
         if(path==='pendingApplications' && (role==="admin" || role=="demo"))return;
+        if(path==="resumeBuilder" && mainRole!=="Employee")return;
         
         
         return (

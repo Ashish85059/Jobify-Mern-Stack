@@ -1,7 +1,19 @@
 import {RouterProvider, createBrowserRouter} from "react-router-dom";
 import {
-  HomeLayout,Landing,Register,Login,DashboardLayout,Error,AddJob,AllJobs,Stats,Profile,Admin,EditJob
-} from "./pages"
+  HomeLayout,
+  Landing,
+  Register,
+  Login,
+  DashboardLayout,
+  Error,
+  AddJob,
+  AllJobs,
+  Stats,
+  Profile,
+  Admin,
+  EditJob,
+  ResumeBuilder,
+} from "./pages";
 
 import {action as registerAction} from  "./pages/Register.jsx"
 import {action as loginAction} from  "./pages/Login.jsx"
@@ -15,6 +27,7 @@ import { loader as adminLoader } from "./pages/Admin.jsx";
 import { loader as statsLoader } from "./pages/Stats.jsx";
 import { loader as appliedLoader } from "./pages/AppliedJobs.jsx";
 import { loader as pendingLoader } from "./pages/PendingApplications.jsx";
+import { loader as resumeLoader } from "./pages/ResumeBuilder.jsx";
 import { action as profileAction } from "./pages/Profile.jsx";
 import AppliedJobs from "./pages/AppliedJobs.jsx";
 import PendingApplications from "./pages/PendingApplications.jsx";
@@ -31,73 +44,78 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
-    errorElement:<Error/>,
+    errorElement: <Error />,
     children: [
       {
-        index:true,
+        index: true,
         element: <Landing />,
       },
       {
         path: "register",
         element: <Register />,
-        action:registerAction
+        action: registerAction,
       },
       {
         path: "login",
         element: <Login />,
-        action:loginAction
+        action: loginAction,
       },
       {
         path: "dashboard",
         element: <DashboardLayout />,
-        loader:dashboardLoader,
-        children:[
+        loader: dashboardLoader,
+        children: [
           {
-            index:true,
-            element:<AllJobs/>,
-            loader:allJobsLoader,
+            index: true,
+            element: <AllJobs />,
+            loader: allJobsLoader,
           },
           {
-            path:"stats",
-            element:<Stats/>,
-            loader:statsLoader
+            path: "stats",
+            element: <Stats />,
+            loader: statsLoader,
           },
           {
-            path:"add-job",
-            element:<AddJob/>,
-            action:addJobAction
+            path: "add-job",
+            element: <AddJob />,
+            action: addJobAction,
           },
           {
-            path:"profile",
-            element:<Profile/>,
-            action:profileAction
+            path: "profile",
+            element: <Profile />,
+            action: profileAction,
           },
           {
-            path:"admin",
-            element:<Admin/>,
-            loader:adminLoader
+            path: "admin",
+            element: <Admin />,
+            loader: adminLoader,
           },
           {
-            path:"edit-job/:id",
-            element:<EditJob/>,
-            loader:editJobLoader,
-            action:editJobAction
+            path: "edit-job/:id",
+            element: <EditJob />,
+            loader: editJobLoader,
+            action: editJobAction,
           },
           {
-            path:"delete-job/:id",
-            action:deleteJobAction
+            path: "delete-job/:id",
+            action: deleteJobAction,
           },
           {
-            path:"applied-jobs",
-            element:<AppliedJobs/>,
-            loader:appliedLoader
+            path: "applied-jobs",
+            element: <AppliedJobs />,
+            loader: appliedLoader,
           },
           {
-            path:"pendingApplications",
-            element:<PendingApplications/>,
-            loader:pendingLoader
-          }
-        ]
+            path: "pendingApplications",
+            element: <PendingApplications />,
+            loader: pendingLoader,
+          },
+          {
+            path: "resumeBuilder",
+            element: <ResumeBuilder />,
+            loader:resumeLoader,
+          },
+        ],
       },
     ],
   },

@@ -2,7 +2,7 @@ import React from "react";
 
 import { IoBarChartSharp } from "react-icons/io5";
 import { MdQueryStats } from "react-icons/md";
-import { FaWpforms } from "react-icons/fa";
+import { FaFilePdf, FaWpforms } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { BiHourglass } from 'react-icons/bi';
@@ -21,6 +21,11 @@ const links = [
     path: "pendingApplications",
     icon: <BiHourglass />,
   },
+  {
+    text:"Resume Builder",
+    path:"resumeBuilder",
+    icon:<FaFilePdf/>
+  }
 ];
 
 export default links;
