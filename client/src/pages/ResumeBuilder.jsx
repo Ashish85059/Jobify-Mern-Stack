@@ -56,8 +56,7 @@ const styles = StyleSheet.create({
 
 export const loader = async () => {
   try {
-    const { data } = await customFetch.get("/resume");
-    
+    const { data } = await customFetch.get("/resume");    
     return { data };
   } catch (error) {
     toast.error("Failed to load data.");
@@ -66,7 +65,7 @@ export const loader = async () => {
 };
 
 const ResumeBuilder = () => {
-  const { data } = useLoaderData();
+  const { data} = useLoaderData();
   // console.log(data)
   
   const [personalInfo, setPersonalInfo] = useState({
@@ -101,7 +100,6 @@ const ResumeBuilder = () => {
   }
   // console.log("first here")
   useEffect(() => {
-    console.log(data)
     if (data.data[0]) {
       setPersonalInfo(data.data[0].personalInfo || {});
       setSummary(data.data[0].summary || "");
